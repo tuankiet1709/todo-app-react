@@ -8,14 +8,20 @@ interface ITodo {
 
 interface IMyProps {
 	todo: ITodo;
+	handleChange: any;
 }
 
 class TodoItem extends React.Component<IMyProps> {
 	render() {
+		const { completed, id, title } = this.props.todo;
 		return (
 			<li className="todo-item">
-				<input type="checkbox" />
-				{this.props.todo.title}
+				<input
+					type="checkbox"
+					checked={completed}
+					onChange={() => this.props.handleChange(id)}
+				/>
+				<span className={completed ? 'completed' : ''}>{title}</span>
 			</li>
 		);
 	}

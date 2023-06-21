@@ -10,6 +10,7 @@ interface ITodo {
 
 interface IMyProps {
 	todos: ITodo[];
+	handleChange: any;
 }
 
 class Todos extends React.Component<IMyProps> {
@@ -18,7 +19,11 @@ class Todos extends React.Component<IMyProps> {
 			<div>
 				<ul>
 					{this.props.todos.map((todo) => (
-						<TodoItem key={todo.id} todo={todo} />
+						<TodoItem
+							key={todo.id}
+							todo={todo}
+							handleChange={this.props.handleChange}
+						/>
 					))}
 				</ul>
 			</div>
