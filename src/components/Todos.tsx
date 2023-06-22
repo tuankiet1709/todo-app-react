@@ -11,6 +11,7 @@ interface ITodo {
 interface IMyProps {
 	todos: ITodo[];
 	handleChange: any;
+	deleteTodo: any;
 }
 
 class Todos extends React.Component<IMyProps> {
@@ -23,6 +24,7 @@ class Todos extends React.Component<IMyProps> {
 							key={todo.id}
 							todo={todo}
 							handleChange={this.props.handleChange}
+							deleteTodo={this.props.deleteTodo}
 						/>
 					))}
 				</ul>

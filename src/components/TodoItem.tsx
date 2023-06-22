@@ -9,6 +9,7 @@ interface ITodo {
 interface IMyProps {
 	todo: ITodo;
 	handleChange: any;
+	deleteTodo: any;
 }
 
 class TodoItem extends React.Component<IMyProps> {
@@ -22,6 +23,13 @@ class TodoItem extends React.Component<IMyProps> {
 					onChange={() => this.props.handleChange(id)}
 				/>
 				<span className={completed ? 'completed' : ''}>{title}</span>
+				<button
+					className="btn-style"
+					onClick={() => this.props.deleteTodo(id)}
+				>
+					{' '}
+					X{' '}
+				</button>
 			</li>
 		);
 	}

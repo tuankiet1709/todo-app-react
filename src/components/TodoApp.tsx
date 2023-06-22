@@ -35,6 +35,18 @@ class TodoApp extends React.Component {
 		});
 	};
 
+	deleteTodo = (id: number) => {
+		const test = this.state.todos.filter((todo) => {
+			return todo.id !== id;
+		});
+		console.log(test);
+		this.setState({
+			todos: this.state.todos.filter((todo) => {
+				return todo.id !== id;
+			}),
+		});
+	};
+
 	render() {
 		return (
 			<div className="container">
@@ -42,6 +54,7 @@ class TodoApp extends React.Component {
 				<Todos
 					todos={this.state.todos}
 					handleChange={this.handleCheckboxChange}
+					deleteTodo={this.deleteTodo}
 				/>
 			</div>
 		);
