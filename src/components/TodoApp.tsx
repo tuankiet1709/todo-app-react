@@ -29,13 +29,17 @@ class TodoApp extends React.Component {
 	};
 
 	deleteTodo = (id: number) => {
-		this.setState({
-			todos: [
-				...this.state.todos.filter((todo: ITodo) => {
-					return todo.id !== id;
-				}),
-			],
-		});
+		axios
+			.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+			.then((response) =>
+				this.setState({
+					todos: [
+						...this.state.todos.filter((todo: ITodo) => {
+							return todo.id !== id;
+						}),
+					],
+				})
+			);
 	};
 
 	addTodo = (title: string) => {
