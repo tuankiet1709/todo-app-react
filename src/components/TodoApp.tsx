@@ -1,7 +1,9 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import Header from './layout/Header';
 import Todos from './Todos';
+import AddTodo from './AddTodo';
 
 class TodoApp extends React.Component {
 	state = {
@@ -36,14 +38,23 @@ class TodoApp extends React.Component {
 	};
 
 	deleteTodo = (id: number) => {
-		const test = this.state.todos.filter((todo) => {
-			return todo.id !== id;
-		});
-		console.log(test);
 		this.setState({
-			todos: this.state.todos.filter((todo) => {
-				return todo.id !== id;
-			}),
+			todos: [
+				...this.state.todos.filter((todo) => {
+					return todo.id !== id;
+				}),
+			],
+		});
+	};
+
+	addTodo = (title: string) => {
+		const newTodo = {
+			id: uuidv4(),
+			title: title,
+			completed: false,
+		};
+		this.setState({
+			todos: [...this.state.todos, newTodo],
 		});
 	};
 
@@ -51,6 +62,7 @@ class TodoApp extends React.Component {
 		return (
 			<div className="container">
 				<Header />
+				<AddTodo addTodo={this.addTodo} />
 				<Todos
 					todos={this.state.todos}
 					handleChange={this.handleCheckboxChange}
