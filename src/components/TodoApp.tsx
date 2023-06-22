@@ -1,34 +1,25 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 import Header from './layout/Header';
 import Todos from './Todos';
 import AddTodo from './AddTodo';
 
+interface ITodo {
+	id: number;
+	title: string;
+	completed: boolean;
+}
+
 class TodoApp extends React.Component {
 	state = {
-		todos: [
-			{
-				id: 1,
-				title: 'Setup development environment',
-				completed: true,
-			},
-			{
-				id: 2,
-				title: 'Develop website and add content',
-				completed: false,
-			},
-			{
-				id: 3,
-				title: 'Deploy to live server',
-				completed: false,
-			},
-		],
+		todos: [],
 	};
 
 	handleCheckboxChange = (id: number) => {
 		this.setState({
-			todos: this.state.todos.map((todo) => {
+			todos: this.state.todos.map((todo: ITodo) => {
 				if (todo.id === id) {
 					todo.completed = !todo.completed;
 				}
@@ -40,7 +31,7 @@ class TodoApp extends React.Component {
 	deleteTodo = (id: number) => {
 		this.setState({
 			todos: [
-				...this.state.todos.filter((todo) => {
+				...this.state.todos.filter((todo: ITodo) => {
 					return todo.id !== id;
 				}),
 			],
@@ -57,6 +48,22 @@ class TodoApp extends React.Component {
 			todos: [...this.state.todos, newTodo],
 		});
 	};
+
+	componentDidMount() {
+		const config = {
+			params: {
+				_limit: 5,
+			},
+		};
+		//Tao Get request de lay danh sach todos
+		axios
+			.get('https://jsonplaceholder.typicode.com/todos', config)
+			.then((response) =>
+				this.setState({
+					todos: response.data,
+				})
+			);
+	}
 
 	render() {
 		return (
