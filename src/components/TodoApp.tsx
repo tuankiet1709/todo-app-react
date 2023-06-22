@@ -39,14 +39,18 @@ class TodoApp extends React.Component {
 	};
 
 	addTodo = (title: string) => {
-		const newTodo = {
-			id: uuidv4(),
+		const todoData = {
 			title: title,
 			completed: false,
 		};
-		this.setState({
-			todos: [...this.state.todos, newTodo],
-		});
+		axios
+			.post('https://jsonplaceholder.typicode.com/todos', todoData)
+			.then((response) => {
+				console.log(response.data);
+				this.setState({
+					todos: [...this.state.todos, todoData],
+				});
+			});
 	};
 
 	componentDidMount() {
