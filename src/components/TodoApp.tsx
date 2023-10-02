@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from './layout/Header';
 import Todos from './Todos';
 import AddTodo from './AddTodo';
+import Footer from '../store/containers/Footer';
 
 interface ITodo {
 	id: number;
@@ -81,6 +82,7 @@ function TodoApp() {
 				handleChange={handleCheckboxChange}
 				deleteTodo={deleteTodo}
 			/>
+			<Footer />
 		</div>
 	);
 }
